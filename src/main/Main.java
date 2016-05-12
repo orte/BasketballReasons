@@ -21,9 +21,10 @@ import all.Player;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ArrayList<Integer> allP = new ArrayList();
-		ArrayList<Player> players = new ArrayList();
+
+		ArrayList<Integer> allP = new ArrayList<Integer>();
+		ArrayList<Player> players = new ArrayList<Player>();
+		//Initialize the scraping of the main FA page and get the table with the players
 		int count = 11;
 		int total = 0;
 		String base = "http://basketballreasons.hol.es/html/fa/fa-ht.htm";
@@ -51,11 +52,12 @@ public class Main {
 		String htmlContent = sb.toString();
 	    Document doc = Jsoup.parse(htmlContent);
 	    Element mainTable = doc.select("table").get(1);
+	    //Now we have to scrap the data of the individual pages of the players in the table
 		while (count<mainTable.select("td").size()){
+			//We initialize the scraping of the players' page
 			String link = mainTable.select("td").get(count+1).select("a").first().attr("href");
 			String changedLink = link.substring(2, link.length());
 			String mainBase = "http://basketballreasons.hol.es/html/"+changedLink;
-			System.out.println(mainBase);
 			URL mainUrl = null;
 			InputStream is1 = null;
 			String line1 = null;
@@ -96,7 +98,9 @@ public class Main {
 			    int age = Integer.parseInt(mainData.select("tr").get(3).select("td").get(2).text());
 			    String weight = mainData.select("tr").get(3).select("td").get(6).text();
 			    //Create the player with the received data
-			    Player player = new Player(count, name, pos, team, age, height, weight, exp);
+			    Player player = new Player(total, name, pos, team, age, height, weight, exp);
+			    allP.add(new Integer(total));
+			    players.add(player);
 			    //Get the abilities of the player
 			    Element abilities = doc1.select("table").get(3);
 			    String [] abs = new String [6];
