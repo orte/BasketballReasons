@@ -11,16 +11,25 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import all.PlayerNotFoundException;
 import obj.*;
+import presLogic.BBallReasonsHandler;
 
 public class Manager {
 	
-	public ArrayList<Player> getPlayersByPosition(String pos){
+	
+	
+	public ArrayList<Player> getPlayersByPosition(String pos, ArrayList<Player> playersList){
 		ArrayList<Player> ordered = new ArrayList<Player>();
-		ArrayList<Player> players = this.getPlayerList();
-		for(int i=0; i<players.size(); i++){
-			if(players.get(i).getPosition().equals(pos)){
-				ordered.add(players.get(i));
+		ArrayList<Player> players = playersList;
+//		for(int i=0; i<players.size(); i++){
+//			if(players.get(i).getPosition().equals(pos)){
+//				ordered.add(players.get(i));
+//			}
+//		}
+		for(Player aux:players){
+			if (aux.getPosition().equals(pos)){
+				ordered.add(aux);
 			}
 		}
 		return ordered;
@@ -50,6 +59,7 @@ public class Manager {
 		}
 		String htmlContent = sb.toString();
 	    Document doc = Jsoup.parse(htmlContent);
+	    BBallReasonsHandler.counter++;
 		return doc;
 	}
 	public ArrayList<Player> getPlayerList(){
@@ -124,13 +134,15 @@ public class Manager {
         return player;
 		
 	}
-	public Player getPlayerByName(String name){
-		ArrayList<Player> players = this.getPlayerList();
+	public Player getPlayerByName(String name, ArrayList<Player> players) throws PlayerNotFoundException {
 		Player player = new Player();
 		for(Player aux:players){
 			if(name.toUpperCase().equals(aux.getName().toUpperCase())){
 				player = aux;
 			}
+		}
+		if(player.getName().equals(null)){
+			throw new PlayerNotFoundException();
 		}
 		return player;
 	}
