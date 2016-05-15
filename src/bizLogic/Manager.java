@@ -141,7 +141,7 @@ public class Manager {
 				player = aux;
 			}
 		}
-		if(player.getName().equals(null)){
+		if(player.getName()==null){
 			throw new PlayerNotFoundException();
 		}
 		return player;

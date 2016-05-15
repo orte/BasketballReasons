@@ -38,7 +38,7 @@ public class Menu {
 		try {
 			player = mng.getPlayerByName(name, players);
 			buf.append(player.toString());
-			buf.append("\nIN"+ " OUT"+" HAN"+ " DEF"+ " REB");
+			buf.append("\nIN"+ " OUT"+" HAN"+ " DEF"+ " REB"+ " POT");
 			buf.append("\n"+player.getAbs());
 			result = buf.toString();
 			return result;

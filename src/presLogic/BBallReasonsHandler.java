@@ -39,13 +39,16 @@ public class BBallReasonsHandler extends TelegramLongPollingBot{
 
             //check if the message has text. it could also  contain for example a location ( message.hasLocation() )
             if (running == true){
+            	running = false;
             	String msg = message.getText();
             	String value = "";
             	switch(current){
             	case "/2": value = menu.posListMenu(playersList, msg); break;
-            	case "/3": value = menu.searchNameMenu(msg, playersList); break;
+            	case "/3": value = menu.searchNameMenu(msg, playersList); 
+            	if(value.equals("No existen jugadores con este nombre, inténtalo de nuevo")){
+            			running = true;
+            		}
             	}
-            	running = false;
             	sendMsg(value, message);
             } else{
 	            if(message.hasText()){

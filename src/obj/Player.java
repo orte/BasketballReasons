@@ -242,7 +242,7 @@ public class Player {
 		return name +" "+ position;
 	}
 	public String getAbs(){
-		return in+" "+out+" "+han+" "+def+" "+reb+" "+pot;
+		return in+" 		"+out+" 				"+han+" 					"+def+" 					"+reb+" 						"+pot;
 	}
 
 	
